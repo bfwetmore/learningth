@@ -34,8 +34,8 @@ function circle(radius) {
 /**
  * Calculates and returns the area of a Sphere
  *
- * @param radius
- * @returns {number}
+ * @param radius - the radius of a sphere
+ * @returns {number} - the area of a sphere
  */
 function sphere(radius) {
     return (4 / 3) * Math.PI * Math.pow(radius, 3);
