@@ -1,4 +1,3 @@
-
 // 2. Add an alert to announce the program with a message like "Let's do some math!"
 alert("let's do some math!")
 
@@ -31,7 +30,6 @@ var message = `<h1>Math with the numbers ${numb1} and ${numb2}:</h1>`;
 // 10. Use the document.write() method to print the message variable
 //     to the web page. Open the finished.png file in this workspace
 //     to see what the completed output should look like
-
 
 
 document.write()
