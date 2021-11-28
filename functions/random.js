@@ -12,5 +12,3 @@ const lower = parseFloat(prompt("Random Generator! Pick a number"))
 const higher = parseFloat(prompt("Pick a second number that's higher"))
 console.log(randomnumber(lower, higher))
 // Call the function and pass it different values
-
-
