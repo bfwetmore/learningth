@@ -1,10 +1,30 @@
-const headline = document.getElementById('headline');
-const btnmain = document.getElementById('btn-main')
-const items = document.getElementsByTagName('li');
-for (let i = 0; i < items.length; i++) {
-    
-}
-style.backgroundColor = 'skyblue'
-btnmain.addEventListener('click', () => {
-    headline.style.border = 'solid 2px red';
+const btnCreate = document.querySelector('.btn-main');
+const btnToggle = document.querySelector('.btn-toggle');
+const btnRemove = document.querySelector('.btn-remove');
+
+btnCreate.addEventListener('click', () => {
+    const input = document.querySelector('.input-main');
+    const list = document.querySelector('ul');
+
+    list.insertAdjacentHTML(
+        'afterbegin',
+        `<li>${input.value}</li>`
+    );
+    input.value = '';
+});
+
+btnRemove.addEventListener('click', () => {
+    const lastItem = document.querySelector('li:last-child');
+    lastItem.remove();
+});
+
+btnToggle.addEventListener('click', () => {
+    const listContainer = document.querySelector('.list-container');
+    if (listContainer.style.display === 'none') {
+        btnToggle.textContent = 'Hide List';
+        listContainer.removeAttribute('style');
+    } else {
+        btnToggle.textContent = 'Show List';
+        listContainer.style.display = `none`;
+    }
 });
