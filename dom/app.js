@@ -14,17 +14,15 @@ btnCreate.addEventListener('click', () => {
 });
 
 btnRemove.addEventListener('click', () => {
-    const lastItem = document.querySelector('li:last-child');
-    lastItem.remove();
+    document.querySelector('li:last-child').remove();
 });
-
 btnToggle.addEventListener('click', () => {
     const listContainer = document.querySelector('.list-container');
     if (listContainer.style.display === 'none') {
         btnToggle.textContent = 'Hide List';
         listContainer.removeAttribute('style');
-    } else {
-        btnToggle.textContent = 'Show List';
-        listContainer.style.display = `none`;
+        return;
     }
+    btnToggle.textContent = 'Show List';
+    listContainer.style.display = `none`;
 });
