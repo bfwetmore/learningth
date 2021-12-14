@@ -2,13 +2,27 @@ const btnCreate = document.getElementById("btn-main");
 const btnToggle = document.querySelector(".btn-toggle");
 const btnRemove = document.querySelector(".btn-remove");
 const taskList = document.querySelector(".list-container ul");
-const listItem = document.getElementsByTagName("li");
-
-for (let i = 0; i < listItem.length; i += 1) {
-	listItem[i].addEventListener("mouseover", () => {
-		listItem[i].textContent = listItem[i].textContent.toUpperCase();
-	});
+const remove = document.querySelectorAll('li')
+for (let i = 0; i < remove.length; i++){
+	attachRemoveButton(remove[i])
 }
+function attachRemoveButton(poop){
+	let remove = document.createElement('button')
+	remove.className = 'remove';
+	remove.textContent = 'Remove';
+	poop.appendChild(remove)
+}
+// const listItem = document.getElementsByTagName("li");
+
+// // for (let i = 0; i < listItem.length; i += 1) {
+	taskList.addEventListener("click", (event) => {
+		if(event.target.tagName === 'BUTTON') {
+			const button = event.target;
+			const li = button.parentNode
+			li.remove()
+		}
+	});
+// // }
 
 document.addEventListener("click", (event) => {
 	console.log(event);
@@ -24,12 +38,16 @@ btnToggle.addEventListener("click", () => {
 		listContainer.style.display = "none";
 	}
 });
+btnCreate.style.backgroundColor
 
 btnCreate.addEventListener("click", () => {
-	const input = document.querySelector(".input-main");
-	const list = document.querySelector("ul");
-	list.insertAdjacentHTML("afterbegin", `<li>${input.value}</i>`);
-	input.value = "";
+	let ul = document.getElementsByTagName('ul')[0];
+	const input = document.querySelector('.input-main');
+	let li = document.createElement('li');
+	li.textContent = input.value;
+	ul.appendChild(li);
+	input.value = '';
+	attachRemoveButton(li)
 });
 
 btnRemove.addEventListener("click", () => {
