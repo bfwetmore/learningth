@@ -7,16 +7,12 @@ for (let i = 0; i < remove.length; i++) {
     attachRemoveButton(remove[i]);
 }
 
-function attachRemoveButton(poop) {
+function attachRemoveButton(li) {
     let remove = document.createElement('button');
     remove.className = 'remove';
     remove.textContent = 'Remove';
-    poop.appendChild(remove);
+    li.appendChild(remove);
 }
-
-// const listItem = document.getElementsByTagName("li");
-
-// // for (let i = 0; i < listItem.length; i += 1) {
 taskList.addEventListener("click", (event) => {
     if (event.target.tagName === 'BUTTON') {
         const button = event.target;
@@ -24,7 +20,6 @@ taskList.addEventListener("click", (event) => {
         li.remove();
     }
 });
-// // }
 
 document.addEventListener("click", (event) => {
     console.log(event);
@@ -40,7 +35,6 @@ btnToggle.addEventListener("click", () => {
         listContainer.style.display = "none";
     }
 });
-btnCreate.style.backgroundColor;
 
 btnCreate.addEventListener("click", () => {
     let ul = document.getElementsByTagName('ul')[0];
