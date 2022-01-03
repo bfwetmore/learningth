@@ -1,10 +1,14 @@
 let employeeList = new XMLHttpRequest();
 
 employeeList.onreadystatechange = () => {
-    if (employeeList.readyState === 4) {
+    if (employeeList.readyState !== 4) {
         return;
     }
+    console.log(employeeList.readyState);
+    console.log(typeof employeeList.readyState);
+    console.log(employeeList.responseText)
     let employees = JSON.parse(employeeList.responseText);
+    console.log(employees)
     let employeeStatus = '<ul class="bulleted">';
     for (let i = 0; i < employees.length; i++) {
         let employeeStatusClass = "out";
@@ -15,9 +19,10 @@ employeeList.onreadystatechange = () => {
     }
     employeeStatus += '</ul>';
     document.getElementById('employeeList').innerHTML = employeeStatus;
+
 };
 
-employeeList.open('GET', 'data/employeess.json');
+employeeList.open('GET', 'data/employees.json');
 employeeList.send();
 
 let roomList = new XMLHttpRequest();
