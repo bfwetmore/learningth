@@ -1,8 +1,8 @@
-const select = document.getElementById('breeds');
-const card = document.querySelector('.card');
+const selectBreedElement = document.getElementById('breeds');
+const breedImgCard = document.querySelector('.card');
 
-select.addEventListener('change', fetchBreedImage);
-card.addEventListener('click', fetchBreedImage);
+selectBreedElement.addEventListener('change', updateBreedValue);
+breedImgCard.addEventListener('click', updateBreedValue);
 document.querySelector('form').addEventListener('submit', postInputFieldData);
 
 Promise.all([
@@ -11,10 +11,21 @@ Promise.all([
 ])
     .then(data => {
         generateImage(data[0].message);
-        generateBreedOptions(data[1].message);
+        generateBreedOptionsElement(data[1].message);
     });
 
-//Functions:
+function updateBreedValue() {
+    let breed = selectBreedElement.value;
+    console.log(breed);
+    let img = breedImgCard.querySelector('img');
+    return fetchBreedImage(img, breed);
+}
+
+/**
+ * Checks for errors in fetch requests.
+ * @param response
+ * @returns {Promise<never>|Promise<unknown>}
+ */
 function checkStatus(response) {
     if (response.ok) {
         return Promise.resolve(response);
@@ -22,31 +33,47 @@ function checkStatus(response) {
     return Promise.reject(new Error(response.statusText));
 }
 
+/**
+ * Imports an image url onto the DOM
+ * @param data
+ */
 function generateImage(data) {
-    card.innerHTML = `
+    breedImgCard.innerHTML = `
         <img src='${data}' alt>
-        <p>Click to view images of ${select.value}s</p>
+        <p>Click to view images of ${selectBreedElement.value}s</p>
         `;
 }
 
-function generateBreedOptions(data) {
-    select.innerHTML = data.map(item => `
+/**
+ * Utilizes JSON data to create options in Dropdown box
+ * @param data
+ */
+function generateBreedOptionsElement(data) {
+    selectBreedElement.innerHTML = data.map(item => `
         <option value='${item}'>${item}</option>
         `).join("");
 }
 
-function fetchBreedImage() {
-    const breed = select.value;
-    const img = card.querySelector('img');
-
+/**
+ * Enforces the image to only show user selected breed.
+ */
+function fetchBreedImage(img, breed) {
     fetchData(`https://dog.ceo/api/breed/${breed}/images/random`)
         .then(data => {
-            img.src = data.message;
-            img.alt = breed;
-            card.querySelector('p').textContent = `Click to view more ${breed}s`;
+            editDom(data, img, breed);
         });
 }
 
+function editDom(data, img, breed) {
+    img.src = data.message;
+    img.alt = breed;
+    breedImgCard.querySelector('p').textContent = `Click to view more ${breed}s`;
+}
+
+/**
+ * Collects user input and submits in a POST request.
+ * @param e
+ */
 function postInputFieldData(e) {
     e.preventDefault();
     const name = document.getElementById('name').value;
@@ -62,7 +89,13 @@ function postInputFieldData(e) {
         .then(data => console.log(data));
 }
 
-function fetchData(url, request) {
+/**
+ * Reusable function for multiple Fetch API's.
+ * @param url
+ * @param request
+ * @returns {Promise<any>}
+ */
+function fetchData(url, request = null) {
     return fetch(url, request)
         .then(checkStatus)
         .then(response => response.json())
