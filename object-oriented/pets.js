@@ -6,11 +6,3 @@ const ernie = {
         console.log('Woof!');
     }
 }
-
-ernie.age = 2
-
-console.log(ernie.age)
-
-ernie.color = 'black';
-
-console.log(ernie)

@@ -1,4 +1,6 @@
-const fruits = ['apple', 'pear', 'strawberry'];
-fruitsLength = fruits.length;
-
-fruits[0];
+class Student {
+    constructor(gpa){
+        this.gpa = gpa;
+    }
+   stringGPA()  {this.gpa.toString() }
+}
